@@ -77,7 +77,7 @@ class Product_Of_Origin {
 	 * Store plugin public class to allow public access.
 	 *
 	 * @since    1.0.0
-	 * @var object      The admin class.
+	 * @var object      The public class.
 	 */
 	public $public;		
 
@@ -188,7 +188,7 @@ class Product_Of_Origin {
 		$this->loader->add_filter( 'woocommerce_product_data_tabs', $this->admin, 'product_of_origin_data_tab', 99 , 1 );
 		$this->loader->add_action( 'woocommerce_product_data_panels', $this->admin, 'product_of_origin_data_panel_wrap' );
 		$this->loader->add_action( 'woocommerce_process_product_meta', $this->admin, 'product_of_origin_meta_save' );
-	
+
 	}
 
 	/**
@@ -200,16 +200,16 @@ class Product_Of_Origin {
 	 */
 	private function define_public_hooks() {
 
-		$this->plugin = new Product_Of_Origin_Public( $this->get_plugin_name(), $this->get_version(), $this->main );
+		$this->public = new Product_Of_Origin_Public( $this->get_plugin_name(), $this->get_version(), $this->main );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'woocommerce_single_product_summary', $this->public, 'product_of_origin_get_meta', 15);
-
 		$this->loader->add_filter( 'woocommerce_add_cart_item_data', $this->public, 'product_of_origin_add_cart_item_data', 10, 3 );
 		$this->loader->add_filter( 'woocommerce_get_item_data', $this->public, 'product_of_origin_item_data', 10, 2 );
-		$this->loader->add_action( 'woocommerce_add_order_item_meta', $this->public, 'product_of_origin_order_item_meta', 10, 2);
+		$this->loader->add_action('woocommerce_add_order_item_meta', $this->public, 'product_of_origin_order_item_meta', 10, 2);
+
 
 	}
 

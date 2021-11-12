@@ -1,5 +1,10 @@
 <?php
-function get_countryAll() {
+/**
+ * Helper function to populate country list.
+ *
+ * @since    1.0.0
+ */
+function product_of_origin_country() {
 	return array(
         	"AF" => "Afghanistan",
 		    "AL" => "Albania",
@@ -251,5 +256,17 @@ function get_countryAll() {
 		    "ZW" => "Zimbabwe",
 		    "AX" => "Aland Islands",
 		);
+
+  }
+	
+/**
+ * Sanitize checkbos for the admin area.
+ *
+ * @since    1.0.0
+ */
+function product_of_origin_sanitize_checkbox( $checked ) {
+
+	return ( ( isset( $checked ) && true == $checked ) ? 'yes' : 'no' );
+
 }
 ?>

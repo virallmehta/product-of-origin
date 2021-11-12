@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Product of Origin
  * Plugin URI:        https://github.com/virallmehta/product-of-origin
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This plugin is to show product of origin on singple product page also, to show on product cart item, product checkout and order page. Is is used along with WooCommerce. Main purpose of the plugin is to show product of origin.
  * Version:           1.0.0
  * Author:            Axelerant
  * Author URI:        https://axelerant.com
@@ -37,6 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PRODUCT_OF_ORIGIN_VERSION', '1.0.0' );
 define( 'POO_DOMAIN', 'product_of_origin' );
+define( 'POO_PATH',  plugin_dir_path( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

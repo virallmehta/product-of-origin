@@ -52,8 +52,9 @@ class Product_Of_Origin_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string    $plugin_name   The name of this plugin.
+	 * @param      string    $version       The version of this plugin.
+	 * @param      string    $plugin_main   The main class
 	 */
 	public function __construct( $plugin_name, $version, $plugin_main ) {
 
@@ -110,65 +111,69 @@ class Product_Of_Origin_Admin {
 	}
 
 	/**
-	 * Data tab for the admin-facing side of the site.
+	 * Show product of origin data tab for the admin area.
 	 *
 	 * @since    1.0.0
 	 */	
 	public function product_of_origin_data_tab( $product_data_tabs ) {
-		$product_data_tabs['vd_pcoo'] = array(
-            'label' => esc_html( 'Country of Origin', POO_DOMAIN ),
-            'target' => 'poo_tab_content',
-            'class' => array( 'show_if_simple', 'show_if_variable' )
-        );
-      
-        return $product_data_tabs;
+
+		$product_data_tabs['poo_tab'] = array(
+					'label' => esc_html( 'Country of Origin', POO_DOMAIN ),
+					'target' => 'poo_tab_content',
+					'class' => array( 'show_if_simple', 'show_if_variable' )
+			);
+        
+		return $product_data_tabs;
 
 	}
 
 	/**
-	 * Data tab for the admin-facing side of the site.
+	 * Wrap for data tab for the admin area.
 	 *
 	 * @since    1.0.0
 	 */	
 	public function product_of_origin_data_panel_wrap() {
 		global $woocommerce, $post;
-        ?>
-        <div id="poo_tab_content" class="panel poo_tab_content woocommerce_options_panel hidden">
-            <div class="poo_fields">
-                <?php 
-                	woocommerce_wp_checkbox(
-					    array(
-					    	'id'            => '_chk_show_poo',
-					      'label'         => 'Show Country of Origin',
-					    )
-				    );
+    ?>
+		<div id="poo_tab_content" class="panel poo_tab_content woocommerce_options_panel hidden">
+			<div class="product_coo_fields">
+				<?php 
+					woocommerce_wp_checkbox(
+						array(
+							'id'     => 'poo_chk_show',
+							'label'  => 'Show Country of Origin',
+						)
+					);
 
-				    woocommerce_wp_select(
-					    array(
-					      	'id'      => '_sel_poo',
-					      	'label'   =>  'Select Country',
-					      	'options' => get_countryAll(),
-					   )
-				    );
-                ?>
-            </div>
-        </div>
-        <?php
+					woocommerce_wp_select(
+						array(
+								'id'      => 'poo_sel_country',
+								'label'   => 'Select Country',
+								'options' => product_of_origin_country(),
+						)
+					);
+				?>
+			</div>
+		</div>
+		<?php
     }
 
 	/**
-	 * Data tab for the admin-facing side of the site.
+	 * Product of origin meta save for the admin area.
 	 *
 	 * @since    1.0.0
-	 */	
-  function product_of_origin_meta_save( $post_id ) {
+	 */		
+	function product_of_origin_meta_save( $post_id ) {
 
-	    $woocommerce_custom_product_checkbox = isset($_POST['_chk_show_poo']) ? 'yes' : 'no';
-	    update_post_meta($post_id, '_chk_show_poo', $woocommerce_custom_product_checkbox);
-	    
-	    $woocommerce_custom_product_select = $_POST['_sel_poo'];
-	    if (!empty($woocommerce_custom_product_select))
-	        update_post_meta($post_id, '_sel_poo', esc_attr($woocommerce_custom_product_select));
+		if ( isset($_POST['poo_chk_show']) ) {
+			$show_chk = product_of_origin_sanitize_checkbox( $_POST['poo_chk_show'] );
+			update_post_meta($post_id, 'poo_chk_show', $show_chk );
+		}
+		
+		if ( isset($_POST['poo_sel_country']) ) {
+			$country_value = sanitize_text_field($_POST['poo_sel_country']);
+				update_post_meta($post_id, 'poo_sel_country', $country_value);
+		}
 	   
 	}	
 

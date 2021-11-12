@@ -107,42 +107,42 @@ class Product_Of_Origin_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/product-of-origin-public.js', array( 'jquery' ), $this->version, false );
 
-	}
+	}	
 
 	/**
-	 * Get Meta for the public-facing side of the site.
+	 * Product of origin get meta for the public-facing side of the site.
 	 *
 	 * @since    1.0.0
-	 */
-	function product_of_origin_get_meta() {
+	 */	
+	public function product_of_origin_get_meta() {
 		global $product;
 		
-		$flag = get_post_meta( $product->get_id(), '_chk_show_poo', true);
+		$flag = get_post_meta( $product->get_id(), 'poo_chk_show', true);
 
 		if ($flag == 'yes') {
-			$country_array = get_countryAll();
-			$country = $country_array[get_post_meta( $product->get_id(), '_sel_poo', true )];
+			$country_array = product_of_origin_country();
+			$country = $country_array[get_post_meta( $product->get_id(), 'poo_sel_country', true )];
 
-			echo apply_filters('product_poo_field', sprintf( '<p><strong>Made in %s</strong></p>', esc_html( $country ) ));			
+			echo apply_filters('poo_field', sprintf( '<p><strong>Made in %s</strong></p>', esc_html( $country ) ));			
 		} 
 
 	}
 
 	/**
-	 * Add cart item data for the public-facing side of the site.
+	 * Add product of origin to cart item data for the public-facing side of the site.
 	 *
 	 * @since    1.0.0
 	 */	
-	function product_of_origin_add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
+	public function product_of_origin_add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
 		global $post;
 
 		$id = $product_id;
-		$flag = get_post_meta( $id, '_chk_show_coo', true);
+		$flag = get_post_meta( $id, 'poo_chk_show', true);
 
 		if ($flag == 'yes') {
-			$country_array = get_countryAll();
-			$country = $country_array[get_post_meta( $id, '_sel_poo', true )];
-			$cart_item_data['product_poo'] = $country;
+			$country_array = product_of_origin_country();
+			$country = $country_array[get_post_meta( $id, 'poo_sel_country', true )];
+			$cart_item_data['poo_country'] = $country;
 			return $cart_item_data;
 		}
 
@@ -150,32 +150,33 @@ class Product_Of_Origin_Public {
 	}
 
 	/**
-	 * Item data for the public-facing side of the site.
+	 * Product of origin item data for the public-facing side of the site.
 	 *
 	 * @since    1.0.0
 	 */	
-	function product_of_origin_item_data( $item_data, $cart_item ) {
+	public function product_of_origin_item_data( $item_data, $cart_item ) {
 
-		if ( !empty($cart_item['product_poo']) ) {
+		if ( !empty($cart_item['poo_country']) ) {
 		    $item_data[] = array(
 		        'key'     => 'Made in ',
-	    	    'value'   => $cart_item['product_poo'],
+	    	    'value'   => $cart_item['poo_country'],
 	        	'display' => '',
 		    );
 		}
 
-	    return $item_data;
-	}	
+	  return $item_data;
+	}
 
 	/**
-	 * Order item meta for the public-facing side of the site.
+	 * Product of origin order item meta for the public-facing side of the site.
 	 *
 	 * @since    1.0.0
 	 */
-	function product_of_origin_order_item_meta($item_id, $values) {
+	public function product_of_origin_order_item_meta( $item_id, $values ) {
+		
 		if (function_exists('woocommerce_add_order_item_meta')) {
-			if ( !empty($values['product_poo']) ) {
-				woocommerce_add_order_item_meta($item_id, 'Made in', $values['product_poo']);
+			if ( !empty($values['poo_country']) ) {
+				woocommerce_add_order_item_meta($item_id, 'Made in', $values['poo_country']);
 			}
 		}
 	}
