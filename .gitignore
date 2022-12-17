@@ -4,6 +4,6 @@
 /.git
 /.github
 /node_modules
-
+README.md
 .distignore
 .gitignore
