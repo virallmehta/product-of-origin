@@ -16,7 +16,7 @@
  * Plugin Name:       Product of Origin
  * Plugin URI:        https://github.com/virallmehta/product-of-origin
  * Description:       This plugin is to show product of origin on singple product page also, to show on product cart item, product checkout and order page. Is is used along with WooCommerce. Main purpose of the plugin is to show product of origin.
- * Version:           1.0.1
+ * Version:           1.0.3
  * Author:            Axelerant
  * Author URI:        https://axelerant.com
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PRODUCT_OF_ORIGIN_VERSION', '1.0.0' );
+define( 'PRODUCT_OF_ORIGIN_VERSION', '1.0.3' );
 define( 'POO_DOMAIN', 'product_of_origin' );
 define( 'POO_PATH',  plugin_dir_path( __FILE__ ) );
 
