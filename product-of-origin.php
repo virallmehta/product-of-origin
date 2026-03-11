@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://axelerant.com
+ * @link              https://swastikaa.co.in
  * @since             1.0.0
  * @package           Product_Of_Origin
  *
@@ -16,9 +16,12 @@
  * Plugin Name:       Product of Origin
  * Plugin URI:        https://github.com/virallmehta/product-of-origin
  * Description:       This plugin is to show product of origin on singple product page also, to show on product cart item, product checkout and order page. Is is used along with WooCommerce. Main purpose of the plugin is to show product of origin.
- * Version:           1.0.3
- * Author:            Axelerant
- * Author URI:        https://axelerant.com
+ * Version:           1.0.7
+ * Requires at least: 6.0
+ * Tested up to: 	  6.9
+ * Requires PHP: 	  8.0
+ * Author:            swastikaa
+ * Author URI:        https://swastikaa.co.in
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       product-of-origin
@@ -35,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PRODUCT_OF_ORIGIN_VERSION', '1.0.3' );
+define( 'PRODUCT_OF_ORIGIN_VERSION', '1.0.6' );
 define( 'POO_DOMAIN', 'product_of_origin' );
 define( 'POO_PATH',  plugin_dir_path( __FILE__ ) );
 
